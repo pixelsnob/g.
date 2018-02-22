@@ -6,7 +6,7 @@ Only dependencies besides Bash are ssh, ssh-keygen, and scp.
 ### Windows, without git
 
 1. Open up the "PowerShell" (lol) console
-1. `curl -o runner https://raw.githubusercontent.com/pixelsnob/g.alerts/master/bin/client/runner; chmod 755 g.alerts`
+1. `curl -o g.alerts https://raw.githubusercontent.com/pixelsnob/g.alerts/master/bin/client/runner; chmod 755 g.alerts`
 1. In your console type `bash`
 1. Navigate to your home directory
 1. `chmod 755 runner` in your console
