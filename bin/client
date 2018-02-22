@@ -1,0 +1,55 @@
+#!/bin/bash
+
+echo "**************** g.alerts remote client ****************"
+
+function run {
+    echo 'Run command "'$1'"'
+    echo "Logging in to remote server..."
+    ssh -i ~/.ssh/id_ecdsa_alerts -t lapr-alerts@pixelsnob.com "cd g.alerts; npm run $1"
+    echo 'Completed command "'$1'"'
+}
+
+PS3='Please enter (1-5) or <return> to see menu again: '
+
+options=("add" "delete" "upload-csv" "generate-key" "quit")
+select opt in "${options[@]}"
+
+do
+    case $opt in
+        "add")
+            run "add"
+            ;;
+        "delete")
+            run "delete"
+            ;;
+        "upload-csv")
+            filename_default=~/alerts.csv
+            read -p "CSV file path [$filename_default]: " filename
+            filename="${filename:-$filename_default}"
+            echo "Uploading $filename..."
+            scp -i ~/.ssh/id_ecdsa_alerts $filename lapr-alerts@pixelsnob.com:~/g.alerts/data 
+            if [ $? = "0" ]
+            then
+                echo "Upload complete, now processing..."
+                run "process-csv"
+                echo "CSV uploaded and processed!"
+            else
+                echo "Upload failed, try again :'("
+            fi
+            ;;
+        "generate-key")
+            ssh-keygen -t ecdsa -b 521 -f ~/.ssh/id_ecdsa_alerts -N ''
+            if [ $? = "0" ]
+            then
+                echo "Your new public key is:"
+                echo `cat ~/.ssh/id_ecdsa_alerts.pub`
+            else
+                echo 'No changes made to public key'
+            fi
+            ;;
+        "quit")
+            exit 0
+            ;;
+        *) echo "Invalid command";;
+    esac
+done
