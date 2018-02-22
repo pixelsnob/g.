@@ -9,7 +9,7 @@ function run {
     echo 'Completed command "'$1'"'
 }
 
-PS3='Please enter (1-5) or <return> to see menu again: '
+PS3='Enter (1-5) or <return> to see menu again: '
 
 options=("add" "delete" "upload-csv" "generate-key" "quit")
 select opt in "${options[@]}"
@@ -44,7 +44,7 @@ do
                 echo "Your new public key is:"
                 echo `cat ~/.ssh/id_ecdsa_alerts.pub`
             else
-                echo 'No changes made to public key'
+                echo 'No changes made'
             fi
             ;;
         "quit")
