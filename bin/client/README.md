@@ -9,6 +9,7 @@ Only dependencies besides Bash are ssh, ssh-keygen, and scp.
 2. delete - Deletes all alerts from the account
 3. upload-csv - Uploads alerts csv file to the server
 4. generate-key - Generates a new public/private key pair and outputs the public key to the console
+5. **quit**
 
 ### Windows, without git
 
