@@ -9,7 +9,7 @@ Only dependencies besides Bash are ssh, ssh-keygen, and scp.
 1. Type `bash`
 1. `curl -o g.alerts https://raw.githubusercontent.com/pixelsnob/g.alerts/master/bin/client/runner; chmod 755 g.alerts`
 1. Navigate to your home directory
-1. `chmod 755 runner` in your console
+1. `chmod 755 runner`
 1. Then, `./g.alerts`
 
 On first run, you will want to generate a public/private key pair by entering the "generate key" option in the menu. Once the public key is authorized on the server, you will be able to access the other commands.
