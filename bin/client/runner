@@ -1,6 +1,8 @@
 #!/bin/bash
 
+echo ""
 echo "**************** g.alerts remote client ****************"
+echo ""
 
 function run {
     echo 'Run command "'$1'"'
@@ -9,25 +11,30 @@ function run {
     echo 'Completed command "'$1'"'
 }
 
-PS3='Enter (1-5) or <return> to see menu again: '
-
-options=("add" "delete" "upload-csv" "generate-key" "quit")
-select opt in "${options[@]}"
-
+while true
 do
-    case $opt in
-        "add")
+    echo "Commands:"
+    echo ""
+    echo "1. add"
+    echo "2. delete"
+    echo "3. upload-csv"
+    echo "4. generate-key"
+    echo "5. quit"
+    echo ""
+    read -p "Enter a command (1-4, 5 to quit): " command
+    case $command in
+        1)
             run "add"
             ;;
-        "delete")
+        2)
             run "delete"
             ;;
-        "upload-csv")
+        3)
             filename_default=~/alerts.csv
             read -p "CSV file path [$filename_default]: " filename
             filename="${filename:-$filename_default}"
             echo "Uploading $filename..."
-            scp -i ~/.ssh/id_ecdsa_alerts $filename lapr-alerts@pixelsnob.com:~/g.alerts/data 
+            scp -i ~/.ssh/id_ecdsa_alerts $filename lapr-alerts@pixelsnob.com:~/g.alerts/data/alerts.csv
             if [ $? = "0" ]
             then
                 echo "Upload complete, now processing..."
@@ -37,7 +44,7 @@ do
                 echo "Upload failed, try again :'("
             fi
             ;;
-        "generate-key")
+        4)
             ssh-keygen -t ecdsa -b 521 -f ~/.ssh/id_ecdsa_alerts -N ''
             if [ $? = "0" ]
             then
@@ -47,7 +54,7 @@ do
                 echo 'No changes made'
             fi
             ;;
-        "quit")
+        5)
             exit 0
             ;;
         *) echo "Invalid command";;
