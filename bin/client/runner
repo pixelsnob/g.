@@ -25,13 +25,24 @@ do
     read -p "Enter a command (1-5, 6 to quit): " command
     case $command in
         1)
-            run "add"
+            default_start_index=1
+            read -p "Enter a start index [1]:" start_index
+            start_index="${start_index:-$default_start_index}"
+            run "add -- -i ${start_index}"
             ;;
         2)
             run "delete"
             ;;
         3)
             run "get"
+            if [ $? = "0" ]
+            then
+
+                filename_default=~/alerts-exported.csv
+                read -p "Save as [$filename_default]: " filename
+                filename="${filename:-$filename_default}"
+                scp -i ~/.ssh/id_ecdsa_alerts lapr-alerts@pixelsnob.com:~/g.alerts/data/alerts-exported.csv $filename
+            fi
             ;;
         4)
             filename_default=~/alerts.csv
