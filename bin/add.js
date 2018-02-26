@@ -9,9 +9,9 @@ const runner = require('../lib/runner');
 
 readFileAsync('data/alerts.json', 'utf-8').then(async data => {
     let parsed = JSON.parse(data);
-    let startIndex = 1;
+    let startIndex = 0;
     if (process.argv[2] == '-i' && +process.argv[3] !== NaN) {
-        startIndex = +process.argv[3];
+        startIndex = +process.argv[3] - 1;
         parsed = parsed.slice(startIndex);
     }
 
