@@ -10,6 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "add": "node bin/add",
+    "get": "node bin/get",
     "delete": "node bin/delete",
     "process-csv": "node bin/process-csv",
     "modify": "node bin/modify-existing"

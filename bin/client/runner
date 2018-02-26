@@ -17,11 +17,12 @@ do
     echo ""
     echo "1. add"
     echo "2. delete"
-    echo "3. upload-csv"
-    echo "4. generate-key"
-    echo "5. quit"
+    echo "3. get"
+    echo "4. upload-csv"
+    echo "5. generate-key"
+    echo "6. quit"
     echo ""
-    read -p "Enter a command (1-4, 5 to quit): " command
+    read -p "Enter a command (1-5, 6 to quit): " command
     case $command in
         1)
             run "add"
@@ -30,6 +31,9 @@ do
             run "delete"
             ;;
         3)
+            run "get"
+            ;;
+        4)
             filename_default=~/alerts.csv
             read -p "CSV file path [$filename_default]: " filename
             filename="${filename:-$filename_default}"
@@ -44,7 +48,7 @@ do
                 echo "Upload failed, try again :'("
             fi
             ;;
-        4)
+        5)
             ssh-keygen -t ecdsa -b 521 -f ~/.ssh/id_ecdsa_alerts -N ''
             if [ $? = "0" ]
             then
@@ -54,7 +58,7 @@ do
                 echo 'No changes made'
             fi
             ;;
-        5)
+        6)
             exit 0
             ;;
         *) echo "Invalid command";;
